@@ -15,19 +15,22 @@ class CreatePengajuansTable extends Migration
     public function up()
     {
         Schema::create('pengajuans', function (Blueprint $table) {
-            $table->id();
-            $table->string('tipe_sertifikat');
-            $table->string('kementrian_yang_mengajukan');
-            $table->string('jabatan');
-            $table->string('deskripsi_kegiatan');
-            $table->string('nama_lengkap_pembicara/moderator');
-            $table->string('nomor_sertifikat');
-            $table->string('nama_kegiatan');
-            $table->date('hari_tanggal');
-            $table->string('bertempat_di');
-            $table->string('cap');
-            $table->string('tambah_ttd_menteri');
-            $table->string('nim_menteri');
+            $table->id()->nullable();
+            $table->string('tipe_sertifikat')->nullable();
+            $table->string('kementrian_yang_mengajukan')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->string('deskripsi_kegiatan')->nullable();
+            $table->string('nama_lengkap_pembicara')->nullable();
+            $table->string('file_excel_nama')->nullable();
+            $table->string('nomor_sertif')->nullable();
+            $table->string('nama_kegiatan')->nullable();
+            $table->string('hari_tanggal')->nullable();
+            $table->string('bertempat_di')->nullable();
+            $table->string('cap')->nullable();
+            $table->string('tambah_ttd_menteri')->nullable();
+            $table->string('nama_lengkap_menteri')->nullable();
+            $table->string('nim_menteri')->nullable();
+            $table->string('file_ttd_menteri')->nullable();
             $table->timestamps();
         });
     }

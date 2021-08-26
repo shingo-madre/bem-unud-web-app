@@ -35,6 +35,14 @@
         </div>
     </nav>
 
+    @if (count($errors) > 0)
+    <div class="alert-danger alert">
+        @foreach ($errors->all() as $error)
+           {{$error}} <br> 
+        @endforeach
+    </div>
+    @endif
+
     <div class="container mb-5">
         <div class="row">
             <div class="col-10">
@@ -42,118 +50,120 @@
             </div>
         </div>
 
+        <form action="/upload/proses" method="POST" enctype="multipart/form-data">
+          @csrf
         <div class="mb-3">
             <label for="exampleDataList" class="form-label">Tipe Sertifikat</label>
-            <select class="form-select" aria-label="Default select example">
-              <option value="1">Sertifikat Terima Kasih</option>
-              <option value="2">Sertifikat dengan Nama</option>
+            <select class="form-select" aria-label="Default select example" method="POST" enctype="multipart/form-data" name="tipe_sertifikat">
+              <option value="Sertifikat Terima Kasih">Sertifikat Terima Kasih</option>
+              <option value="Sertifikat dengan Nama">Sertifikat dengan Nama</option>
             </select>
             </div>
         
         <div class="mb-3">
         <label for="exampleDataList" class="form-label">Kementrian Yang Mengajukan</label>
-        <select class="form-select" aria-label="Default select example">
-          <option value="1">KHMK</option>
-          <option value="2">MENKEU</option>
-          <option value="3">KESKAB</option>
-          <option value="4">HUBLU</option>
-          <option value="5">SINPUS</option>
-          <option value="6">KOMINFO</option>
-          <option value="7">KWU</option>
-          <option value="8">MENBUD</option>
-          <option value="9">SOSLINDUP</option>
-          <option value="10">PEMDES</option>
-          <option value="11">JAKNAS</option>
-          <option value="12">JAKDA</option>
-          <option value="13">ADKESMA</option>
-          <option value="14">MIBAT</option>
-          <option value="15">PSDM</option>
-          <option value="16">RISBANG</option>
+        <select class="form-select" aria-label="Default select example" action name="kementrian_yang_mengajukan">
+          <option value="KHMK">KHMK</option>
+          <option value="MENKEU">MENKEU</option>
+          <option value="KESKAB">KESKAB</option>
+          <option value="HUBLU">HUBLU</option>
+          <option value="SINPUS">SINPUS</option>
+          <option value="KOMINFO">KOMINFO</option>
+          <option value="KWU">KWU</option>
+          <option value="MENBUD">MENBUD</option>
+          <option value="SOSLINDUP">SOSLINDUP</option>
+          <option value="PEMDES">PEMDES</option>
+          <option value="JAKNAS">JAKNAS</option>
+          <option value="JAKDA">JAKDA</option>
+          <option value="ADKESMA">ADKESMA</option>
+          <option value="MIBAT">MIBAT</option>
+          <option value="PSDM">PSDM</option>
+          <option value="RISBANG">RISBANG</option>
         </select>
         </div>
 
         <div class="mb-3">
           <label for="exampleDataList" class="form-label">Jabatan</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Jabatan</option>
-            <option value="1">Peserta</option>
-            <option value="2">Moderator</option>
-            <option value="3">Pembicara</option>
-            <option value="4">Panitia</option>
+          <select class="form-select" aria-label="Default select example" name="jabatan">
+            <option value="Peserta">Peserta</option>
+            <option value="Moderator">Moderator</option>
+            <option value="Pembicara">Pembicara</option>
+            <option value="Panitia">Panitia</option>
           </select>
           </div>
 
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Deskripsi Kegiatan</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="deskripsi_kegiatan" ></textarea>
         </div>
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Nama Lengkap Pembicara/Moderator</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="I Gusti Nyoman">
+          <input type="text" class="form-control" name="nama_lengkap_pembicara" id="exampleFormControlInput1" placeholder="I Gusti Nyoman">
         </div>
 
         <div class="mb-3">
           <label for="formFile" class="form-label">File Excel Nama Peserta/Panitia</label>
-          <input class="form-control" type="file" id="formFile">
+          <input class="form-control" type="file" id="formFile" name="file_excel_nama">
       </div> 
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Nomor Sertifikat</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="43.001/BEM-UNUD/VII/2021">
+          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="43.001/BEM-UNUD/VII/2021" name="nomor_sertif">
         </div>
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Nama Kegiatan</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="nama_kegiatan">
         </div>
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Hari, Tanggal</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="28 Februari 2021">
+          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="28 Februari 2021" name="hari_tanggal">
         </div>
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Bertempat di</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="bertempat_di">
         </div>
 
         <div class="mb-3">
           <label for="exampleDataList" class="form-label">Cap</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected></option>
-            <option value="1">Basah</option>
-            <option value="2">Digital</option>
+          <select class="form-select" aria-label="Default select example" name="cap">
+            <option value="Basah">Basah</option>
+            <option value="Digital">Digital</option>
           </select>
           </div>
 
         <div class="mb-3">
             <label for="exampleDataList" class="form-label">Apakah Ingin Menambahkan Tanda Tangan Menteri</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected></option>
-              <option value="1">Ya</option>
-              <option value="2">Tidak</option>
+            <select class="form-select" aria-label="Default select example" name="tambah_ttd_menteri">
+              <option value="Ya">Ya</option>
+              <option value="Tidak">Tidak</option>
             </select>
         </div>  
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Nama Lengkap Menteri</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="nama_lengkap_menteri">
         </div>
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">NIM Menteri</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="nim_menteri">
         </div>
 
         <div class="mb-3">
           <label for="formFile" class="form-label">File Tanda Tangan Menteri</label>
-          <input class="form-control" type="file" id="formFile">
+          <input class="form-control" type="file" id="formFile" name="file_ttd_menteri">
         </div> 
         
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-primary me-md-2" type="submit">Submit</button>
+          <button class="btn btn-primary me-md-2" type="submit" value="Upload">Submit</button>
         </div>
+        </form>
+
+        
         
     </div>
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UploadController;
+use App\Models\Pengajuan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +22,17 @@ Route::get('/', function () {
 Route::any('/About', function () {
     return view('index');
 });
+
+Route::get('/vardump', function()
+{
+    echo '<pre>';
+    var_dump(Pengajuan::all());
+    echo '</pre>';
+    //exit;  <--if you want
+});
+
+Route::get('/data',[UploadController::class, 'display_data']);
+
+Route::get('/upload', [UploadController::class, 'upload']);
+
+Route::post('/upload/proses', [UploadController::class, 'proses_upload']);
