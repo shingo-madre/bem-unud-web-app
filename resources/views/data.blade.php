@@ -8,30 +8,55 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container">
-    <table class="table table-bordered table-striped">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Bem Udayana</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/About">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Insight</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-3 align-middle">
+    <table class="table table-bordered table-striped table-responsive">
         <thead>
             <tr>
-                <th width="1%">tipe sertif</th>
-                <th width="1%">kementrian yang mengajukan</th>
-                <th width="1%">jabatan</th>
-                <th width="1%">deskripsi kegiatan</th>
-                <th width="1%">nama lengkap pembicara</th>
-                <th width="1%">file excel nama</th>
-                <th width="1%">nomor sertif</th>
-                <th width="1%">nama kegiatan</th>
-                <th width="1%">hari tanggal</th>
-                <th width="1%">bertempat di</th>
-                <th width="1%">cap</th>
-                <th width="1%">tambah ttd menteri</th>
-                <th width="1%">nama lengkap menteri</th>
-                <th width="1%">nim menteri</th>
-                <th width="1%">file ttd menteri</th>
+                <th>id</th>
+                <th>tipe sertif</th>
+                <th>kementrian yang mengajukan</th>
+                <th>jabatan</th>
+                <th>deskripsi kegiatan</th>
+                <th>nama lengkap pembicara</th>
+                <th>file excel nama</th>
+                <th>nomor sertif</th>
+                <th>nama kegiatan</th>
+                <th>hari tanggal</th>
+                <th>bertempat di</th>
+                <th>cap</th>
+                <th>tambah ttd menteri</th>
+                <th>nama lengkap menteri</th>
+                <th>nim menteri</th>
+                <th>file ttd menteri</th>
             </tr>
         </thead>
         <tbody>
             @foreach($pengajuan as $p)
             <tr>
+                <td>{{$p->id}}</td>
                 <td>{{$p->tipe_sertifikat}}</td>
                 <td>{{$p->kementrian_yang_mengajukan}}</td>
                 <td>{{$p->jabatan}}</td>
@@ -47,7 +72,7 @@
                 <td>{{$p->nama_lengkap_menteri}}</td>
                 <td>{{$p->nim_menteri}}</td>
                 <td>{{$p->file_ttd_menteri}}</td>
-                <td><a class="btn btn-danger" href="/upload/hapus/{{ $p->id }}">HAPUS</a></td>
+                <!-- <td><a class="btn btn-danger" href="/upload/hapus/{{ $p->id }}">HAPUS</a></td> -->
             </tr>
             @endforeach
         </tbody>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Pengajuan;
 
@@ -17,16 +18,20 @@ class UploadController extends Controller
     public function proses_upload(Request $request)
     {
        
-        
         $file_nama = $request->file('file_excel_nama');
         $file_ttd = $request->file('file_ttd_menteri');
         
-        $nama_file = time()."-".$file_nama->getClientOriginalName();
+        $nama_file = $file_nama->getClientOriginalName();
+
+        $file_nama->store('public');
         $nama_file_ttd = time()."-".$file_ttd->getClientOriginalName();
-        /*
-        $tujuan_upload = 'data_file';
+        
+        
+        $tujuan_upload = 'data';
         $file_nama->move($tujuan_upload, $nama_file);
-        */ 
+
+        $path = Storage::putFile('public/data', $request->file('file_excel_nama'));
+        
         Pengajuan::create([
             'tipe_sertifikat' => $request->tipe_sertifikat,
             'kementrian_yang_mengajukan' => $request->kementrian_yang_mengajukan,
