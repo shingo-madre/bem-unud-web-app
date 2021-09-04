@@ -35,7 +35,6 @@
     <table class="table table-bordered table-striped table-responsive">
         <thead>
             <tr>
-                <th>id</th>
                 <th>tipe sertif</th>
                 <th>kementrian yang mengajukan</th>
                 <th>jabatan</th>
@@ -56,13 +55,12 @@
         <tbody>
             @foreach($pengajuan as $p)
             <tr>
-                <td>{{$p->id}}</td>
                 <td>{{$p->tipe_sertifikat}}</td>
                 <td>{{$p->kementrian_yang_mengajukan}}</td>
                 <td>{{$p->jabatan}}</td>
                 <td>{{$p->deskripsi_kegiatan}}</td>
                 <td>{{$p->nama_lengkap_pembicara}}</td>
-                <td>{{$p->file_excel_nama}}</td>
+                <td><a class="btn btn-info" href="download/{{ $p->file_excel_nama }}">Download</a></td>
                 <td>{{$p->nomor_sertif}}</td>
                 <td>{{$p->nama_kegiatan}}</td>
                 <td>{{$p->hari_tanggal}}</td>
@@ -71,8 +69,7 @@
                 <td>{{$p->tambah_ttd_menteri}}</td>
                 <td>{{$p->nama_lengkap_menteri}}</td>
                 <td>{{$p->nim_menteri}}</td>
-                <td>{{$p->file_ttd_menteri}}</td>
-                <!-- <td><a class="btn btn-danger" href="/upload/hapus/{{ $p->id }}">HAPUS</a></td> -->
+                <td><a class="btn btn-info" href="download/{{ $p->file_ttd_menteri }}">Download</a></td>
             </tr>
             @endforeach
         </tbody>

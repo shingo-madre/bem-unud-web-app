@@ -31,8 +31,10 @@ Route::get('/vardump', function()
     //exit;  <--if you want
 });
 
-Route::get('/data',[UploadController::class, 'display_data']);
+Route::get('/display_data', [UploadController::class, 'display_data']);
 
 Route::get('/upload', [UploadController::class, 'upload']);
 
 Route::post('/upload/proses', [UploadController::class, 'proses_upload']);
+
+Route::get('/download/{filename}', [UploadController::class, 'download']);
