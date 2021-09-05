@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 
 use App\Models\Pengajuan;
+use PhpParser\Node\Stmt\Else_;
 
 class UploadController extends Controller
 {
@@ -47,26 +48,28 @@ class UploadController extends Controller
                 'nim_menteri' => $request->nim_menteri,
                 'file_ttd_menteri' => $nama_file_ttd
             ]);
+        } else {
+            Pengajuan::create([
+                'tipe_sertifikat' => $request->tipe_sertifikat,
+                'kementrian_yang_mengajukan' => $request->kementrian_yang_mengajukan,
+                'jabatan' => $request->jabatan,
+                'deskripsi_kegiatan' => $request->deskripsi_kegiatan,
+                'nama_lengkap_pembicara' => $request->nama_lengkap_pembicara,
+                'file_excel_nama' => NULL,
+                'nomor_sertif' => $request->nomor_sertif,
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'hari_tanggal' => $request->hari_tanggal,
+                'bertempat_di' => $request->bertempat_di,
+                'cap' => $request->cap,
+                'tambah_ttd_menteri' => $request->tambah_ttd_menteri,
+                'nama_lengkap_menteri' => $request->nama_lengkap_menteri,
+                'nim_menteri' => $request->nim_menteri,
+                'file_ttd_menteri' => NULL
+            ]);
         }
         
         
-        Pengajuan::create([
-            'tipe_sertifikat' => $request->tipe_sertifikat,
-            'kementrian_yang_mengajukan' => $request->kementrian_yang_mengajukan,
-            'jabatan' => $request->jabatan,
-            'deskripsi_kegiatan' => $request->deskripsi_kegiatan,
-            'nama_lengkap_pembicara' => $request->nama_lengkap_pembicara,
-            'file_excel_nama' => NULL,
-            'nomor_sertif' => $request->nomor_sertif,
-            'nama_kegiatan' => $request->nama_kegiatan,
-            'hari_tanggal' => $request->hari_tanggal,
-            'bertempat_di' => $request->bertempat_di,
-            'cap' => $request->cap,
-            'tambah_ttd_menteri' => $request->tambah_ttd_menteri,
-            'nama_lengkap_menteri' => $request->nama_lengkap_menteri,
-            'nim_menteri' => $request->nim_menteri,
-            'file_ttd_menteri' => NULL
-        ]);
+        
         
         
        return redirect()->back();
