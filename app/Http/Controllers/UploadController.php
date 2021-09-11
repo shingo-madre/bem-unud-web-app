@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 
 use App\Models\Pengajuan;
+use Illuminate\Support\Facades\Crypt;
 use PhpParser\Node\Stmt\Else_;
 
 class UploadController extends Controller
@@ -19,60 +20,42 @@ class UploadController extends Controller
 
     public function proses_upload(Request $request)
     {
+        $request->validate([
+
+            'tipe_sertifikat' => 'required',
+            'kementrian_yang_mengajukan' => 'required',
+            'jabatan' => 'required',
+            'deskripsi_kegiatan' => 'required',
+            'nama_lengkap_pembicara' => 'required',
+            'nomor_sertif' => 'required',
+            'nama_kegiatan' => 'required',
+            'hari_tanggal' => 'required',
+            'bertempat_di' => 'required',
+            'cap' => 'required',
+            'file_excel_nama' => 'required',
+            
+        ]);
+        $uploads = $request->all();
         if($request->file_excel_nama != NULL || $request->file_ttd_Menteri != NULL )
         {
-            $file_nama = $request->file('file_excel_nama');
-            $file_ttd = $request->file('file_ttd_menteri');
             
-            $nama_file = time()."-".$file_nama->getClientOriginalName();
-            $nama_file_ttd = time()."-".$file_ttd->getClientOriginalName();
+            if ($request->file_excel_nama) {
+                $file_name = 'file_name_participant/'.time() . '.' . $request->file_excel_nama->extension();
+                $request->file_excel_nama->storeAs('public/data/', $file_name);
+                $uploads['file_excel_nama'] =  $file_name;
+            }
 
-            $tujuan_upload = 'data';
-            $file_ttd->move($tujuan_upload, $nama_file_ttd);
-            $file_nama->move($tujuan_upload, $nama_file);
+            if ($request->file_ttd_menteri) {
+                $file_namew = 'file_ttd_menteri/'.time() . '.' . $request->file_ttd_menteri->extension();
+                $request->file_ttd_menteri->storeAs('public/data/', $file_namew);
+                $uploads['file_ttd_menteri'] =  $file_namew;
+            }
 
-            Pengajuan::create([
-                'tipe_sertifikat' => $request->tipe_sertifikat,
-                'kementrian_yang_mengajukan' => $request->kementrian_yang_mengajukan,
-                'jabatan' => $request->jabatan,
-                'deskripsi_kegiatan' => $request->deskripsi_kegiatan,
-                'nama_lengkap_pembicara' => $request->nama_lengkap_pembicara,
-                'file_excel_nama' => $nama_file,
-                'nomor_sertif' => $request->nomor_sertif,
-                'nama_kegiatan' => $request->nama_kegiatan,
-                'hari_tanggal' => $request->hari_tanggal,
-                'bertempat_di' => $request->bertempat_di,
-                'cap' => $request->cap,
-                'tambah_ttd_menteri' => $request->tambah_ttd_menteri,
-                'nama_lengkap_menteri' => $request->nama_lengkap_menteri,
-                'nim_menteri' => $request->nim_menteri,
-                'file_ttd_menteri' => $nama_file_ttd
-            ]);
-        } else {
-            Pengajuan::create([
-                'tipe_sertifikat' => $request->tipe_sertifikat,
-                'kementrian_yang_mengajukan' => $request->kementrian_yang_mengajukan,
-                'jabatan' => $request->jabatan,
-                'deskripsi_kegiatan' => $request->deskripsi_kegiatan,
-                'nama_lengkap_pembicara' => $request->nama_lengkap_pembicara,
-                'file_excel_nama' => NULL,
-                'nomor_sertif' => $request->nomor_sertif,
-                'nama_kegiatan' => $request->nama_kegiatan,
-                'hari_tanggal' => $request->hari_tanggal,
-                'bertempat_di' => $request->bertempat_di,
-                'cap' => $request->cap,
-                'tambah_ttd_menteri' => $request->tambah_ttd_menteri,
-                'nama_lengkap_menteri' => $request->nama_lengkap_menteri,
-                'nim_menteri' => $request->nim_menteri,
-                'file_ttd_menteri' => NULL
-            ]);
-        }
+            // dd( [$uploads['file_ttd_menteri'], $uploads['file_excel_nama'] ]);
+            Pengajuan::create($uploads);
+        } 
         
-        
-        
-        
-        
-       return redirect()->back();
+       return redirect()->back()->with('success','Berhasil Melakukan Pengajuan');
        
     }
 
@@ -84,11 +67,13 @@ class UploadController extends Controller
 
     public function download($filename)
     {
-        
-        $file_path = public_path().'/data/'.$filename;
+        // dd(Crypt::decrypt($filename));
+        $file_path = public_path().'/storage/data/'. Crypt::decrypt($filename);
+        $file_name = explode("/", Crypt::decrypt($filename));
+
         if(file_exists($file_path)) 
         {
-            return response()->download($file_path, $filename , [
+            return response()->download($file_path, $file_name[1] , [
                 'Content-Length: '.filesize($file_path)
             ]);
         }

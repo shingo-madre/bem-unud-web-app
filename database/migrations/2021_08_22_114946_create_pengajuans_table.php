@@ -15,7 +15,7 @@ class CreatePengajuansTable extends Migration
     public function up()
     {
         Schema::create('pengajuans', function (Blueprint $table) {
-            $table->id()->nullable();
+            $table->id();
             $table->string('tipe_sertifikat')->nullable();
             $table->string('kementrian_yang_mengajukan')->nullable();
             $table->string('jabatan')->nullable();

@@ -60,7 +60,7 @@
                 <td>{{$p->jabatan}}</td>
                 <td>{{$p->deskripsi_kegiatan}}</td>
                 <td>{{$p->nama_lengkap_pembicara}}</td>
-                <td><a class="btn btn-info" href="download/{{ $p->file_excel_nama }}">Download</a></td>
+                <td><a class="btn btn-info" href="download/{{Crypt::encrypt($p->file_excel_nama)}}">Download</a></td>
                 <td>{{$p->nomor_sertif}}</td>
                 <td>{{$p->nama_kegiatan}}</td>
                 <td>{{$p->hari_tanggal}}</td>
@@ -69,7 +69,7 @@
                 <td>{{$p->tambah_ttd_menteri}}</td>
                 <td>{{$p->nama_lengkap_menteri}}</td>
                 <td>{{$p->nim_menteri}}</td>
-                <td><a class="btn btn-info" href="download/{{ $p->file_ttd_menteri }}">Download</a></td>
+                <td><a class="btn btn-info" href="download/{{Crypt::encrypt($p->file_ttd_menteri)}}">Download</a></td>
             </tr>
             @endforeach
         </tbody>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengajuan extends Model
 {
-   protected $table = "pengajuans";
+   protected $table = "pengajuan_sertifikats";
 
    protected $fillable = [
        'tipe_sertifikat', 
